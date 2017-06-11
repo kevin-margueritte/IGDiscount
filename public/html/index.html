@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - IGDiscount</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="IGDicount">
+    <meta name="author" content="IGDicount">
+    <link rel="icon" href="/images/logo.ico" />
+    <!-- Bootstrap CSS -->
+    <link href="/lib/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/lib/business-casual.css" rel="stylesheet">
+    <link href="/assets/stylesheets/custom.css" rel="stylesheet">
+
+    <!-- Notification/CSS -->
+    <link href="/lib/angular-ui-notification.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body ng-app="app" ng-controller="indexController">
+
+<div id="headtitle"></div>
+<div id="navbar" ng-controller="headerController"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="box">
+            <div class="col-lg-12">
+                <hr>
+                <h2 class="intro-text text-center">What is <strong>IGDiscount</strong>?
+                </h2>
+                <hr>
+                <p class="center-text">Do you need some help or tools for your DIY Projects?</br>
+                    Do you want to sell your products through a wonderful website?</br>
+                    Come with us! We would be so glad to help you!</p>
+                </br ng-show="enableNoConnected">
+                <p class="text-center" ng-show="enableNoConnected"><a href="/registration"><button type="button" class="btnjoin btn btn-primary joinus">Join Us !</button></a></p>
+                </br ng-show="enableNoConnected">
+                <p class="text-center" ng-show="enableNoConnected">It saves a kitten - It's gluten-free - It reduces greenhouse gas effects</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+    <!-- /.container -->
+
+<div id="footer"></div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="assets/lib/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+<script src="/lib/jquery.cookie.js"></script>
+<script src="/lib/angular-ui-notification.min.js"></script>
+<script src="/lib/smart-table.min.js"></script>
+<script src="/lib/spin.min.js"></script>
+<script src="/lib/angular-filter.min.js"></script>
+<script src="/lib/angular-spinner.js"></script>
+<script src="/js/facebookService.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/oauth.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/index.js"></script>
+<script>
+        $( "#headtitle" ).load( "/assets/html/headtitle.html" );
+        $( "#footer" ).load( "/assets/html/footer.html" );
+</script>
+
+</body>
+</html>

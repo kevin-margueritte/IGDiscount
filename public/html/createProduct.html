@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a Product - IGDiscount</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="IGDicount">
+    <meta name="author" content="IGDicount">
+    <link rel="icon" href="/images/logo.ico" />
+    <!-- Bootstrap CSS -->
+    <link href="/lib/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/lib/business-casual.css" rel="stylesheet">
+    <link href="/assets/stylesheets/custom.css" rel="stylesheet">
+
+    <!-- Notification/CSS -->
+    <link href="/lib/angular-ui-notification.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="/lib/dropzone.css">
+
+</head>
+<body ng-app="app" ng-controller="product">
+
+<div id="headtitle"></div>
+<div id="navbar" ng-controller="headerController"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="box">
+            <div class="col-lg-12">
+                <hr>
+                <h2 class="intro-text text-center">Add a product
+                </h2>
+                <hr>
+                <form name="productForm" ng-submit="submitForm()" novalidate>
+                    <div class="form-group" ng-class="{ 'has-error' : productForm.name.$invalid && !productForm.name.$pristine }">
+                        <label>Product name</label>
+                        <input type="name" class="form-control" ng-minlength="1" ng-maxlength="40" name="name" ng-model="product.name" required>
+                        <p ng-show="productForm.name.$error.minlength && !productForm.name.$pristine" class="help-block">Name is too short</p>
+                        <p ng-show="productForm.name.$error.maxlength && !productForm.name.$pristine" class="help-block">Name is too long</p>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : productForm.quantity.$invalid && !productForm.quantity.$pristine }">
+                        <label>Available quantity (stock)</label>
+                        <input type="number" min="0" ng-min="0" ng-max="10000" name="quantity" class="form-control" ng-model="product.quantity" required>
+                        <p ng-show="productForm.quantity.$error.min && !productForm.quantity.$pristine" class="help-block">Quantity have to be positive</p>
+                        <p ng-show="productForm.quantity.$error.max && !productForm.quantity.$pristine" class="help-block">Quantity have to be less than 10000</p>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : productForm.price.$invalid && !productForm.price.$pristine }">
+                        <label>Price per unit</label>
+                        <input type="number" step="0.01" min="0" ng-min="0" ng-max="10000" name="price" class="form-control" ng-model="product.price" required>
+                        <p ng-show="productForm.price.$error.min && !productForm.price.$pristine" class="help-block">Price must be positive</p>
+                        <p ng-show="productForm.price.$error.max && !productForm.price.$pristine" class="help-block">Price have to be less than 10000€</p>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : productForm.description.$invalid && !productForm.description.$pristine }">
+                        <label>Description</label>
+                        <textarea name="description" ng-minlength="1" ng-maxlength="1000" class="form-control" ng-model="product.description" required></textarea>
+                        <p ng-show="productForm.description.$error.minlength && !productForm.description.$pristine" class="help-block">Description is too short</p>
+                        <p ng-show="productForm.description.$error.maxlength && !productForm.description.$pristine" class="help-block">Description is too long</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Add a picture</label>
+                        <div class="dropzone" id="dropzoneProduct" ng-show="creatingMode"></div>
+                        <div class="dropzone" id="dropzoneUpdate" ng-show="!creatingMode"></div>
+                    </div>
+                    <input type="submit" class="btn btn-primary" ng-disabled="productForm.$invalid || disable" value="Create product">
+                </form>
+                <div ng-show="showError" class="alert alert-danger">
+                    <strong>Error! </strong>Issue detected, please retry.
+                </div>
+                <div ng-show="showWaiting" class="alert alert-info">
+                    Please wait <span us-spinner="{}" spinner-key="spinner-1" style="position: relative; margin-left: 30px"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer"></div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"   integrity="sha256-DI6NdAhhFRnO2k51mumYeDShet3I8AKCQf/tf7ARNhI="   crossorigin="anonymous"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/lib/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+<script src="/lib/dropzone.js"></script>
+<script src="/lib/jquery.cookie.js"></script>
+<script src="/lib/angular-ui-notification.min.js"></script>
+<script src="/lib/smart-table.min.js"></script>
+<script src="/lib/spin.min.js"></script>
+<script src="/lib/angular-filter.min.js"></script>
+<script src="/lib/angular-spinner.js"></script>
+<script src="/js/facebookService.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/oauth.js"></script>
+<script src="/js/product.js"></script>
+
+<script>
+        $( "#headtitle" ).load( "/assets/html/headtitle.html" );
+        $( "#footer" ).load( "/assets/html/footer.html" );
+</script>
+</body>
+</html>

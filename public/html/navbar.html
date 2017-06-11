@@ -1,0 +1,89 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+            <a class="navbar-brand" href="/">IGDiscount</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/registration" ng-show="enableNoConnected">Subscribe</a>
+                </li>
+                <li>
+                    <a href="/connection" ng-show="enableNoConnected">Log In</a>
+                </li>
+                <li>
+                    <a href="/account" ng-show="!enableNoConnected">My account</a>
+                </li>
+                <li>
+                    <a href="/products">Marketplace</a>
+                </li>
+                <li role="presentation" class="dropdown" ng-show="enableAdmin">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        Management <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/product/manage/admin">Manage products</a>
+                        </li>
+                        <li>
+                            <a href="/account/manage">Manage accounts</a>
+                        </li>
+                        <li>
+                            <a href="/registration">Create an account</a>
+                        </li>
+                    </ul>
+                </li>
+                <li role="presentation" class="dropdown" ng-show="enableSeller">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        Products <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/product/manage/sellercompany">My products</a>
+                        </li>
+                        <li>
+                            <a href="/product/create/" ng-show="enableSeller">Add a product</a>
+                        </li>
+                    </ul>
+                </li>
+                <li role="presentation" class="dropdown" ng-show="enableSeller">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        Orders <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/manage/order/pending">Ongoing orders</a>
+                        </li>
+                        <li>
+                            <a href="/manage/order/completed" ng-show="enableSeller">Completed orders</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/cart" ng-show="enableSimple">My Cart</a>
+                </li>
+                <li>
+                    <a href="/myorder" ng-show="enableSimple">My orders</a>
+                </li>
+                <li>
+                    <a href="/manage/order/confirmed" ng-show="enableAdmin">Confirmed orders</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="logout()" ng-show="!enableNoConnected">Log out</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>

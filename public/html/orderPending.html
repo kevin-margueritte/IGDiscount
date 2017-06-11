@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ongoing Orders - IGDiscount</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="IGDicount">
+    <meta name="author" content="IGDicount">
+    <link rel="icon" href="/images/logo.ico" />
+    <!-- Bootstrap CSS -->
+    <link href="/lib/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/lib/business-casual.css" rel="stylesheet">
+    <link href="/assets/stylesheets/custom.css" rel="stylesheet">
+
+    <!-- Notification/CSS -->
+    <link href="/lib/angular-ui-notification.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body ng-app="app" ng-controller="listProduct">
+
+<div id="headtitle" ng-controller="headerController"></div>
+<div id="navbar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="box">
+            <div class="col-lg-12">
+                <hr>
+                <h2 class="intro-text text-center">Ongoing orders</h2>
+                <hr>
+                <div class="form-group">
+                    <label>Group by</label>
+                    <select class="form-control" name="group" ng-model="groupProperty">
+                        <option value="">No group</option>
+                        <option value="name">Name product</option>
+                        <option value="customer">Customer</option>
+                        <option value="day">Day</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Filter by</label>
+                    <select class="form-control" name="group" ng-model="filterProperty">
+                        <option value="">No filter</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table st-table="displayedCollection" st-safe-src="orderRows" class="table table-striped">
+                        <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinner-1"></span>
+                        <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th st-sort="customer"><a href="#" class="link-table">Customer</a><i class="leftalign hidden-xs glyphicon glyphicon-sort" aria-hidden="true"></i></th>
+                            <th st-sort="name"><a href="#" class="link-table">Name</a><i class="leftalign hidden-xs glyphicon glyphicon-sort" aria-hidden="true"></i></th>
+                            <th st-sort="price"><a href="#" class="link-table">Price</a><i class="leftalign hidden-xs glyphicon glyphicon-sort" aria-hidden="true"></i></th>
+                            <th st-sort="quantity"><a href="#" class="link-table">Quantity</a><i class="leftalign hidden-xs glyphicon glyphicon-sort" aria-hidden="true"></i></th>
+                            <th st-sort="state"><a href="#" class="link-table">State</a><i class="leftalign hidden-xs glyphicon glyphicon-sort" aria-hidden="true"></i></th>
+                            <th st-sort="date"><a href="#" class="link-table">Date</a><i class="leftalign hidden-xs glyphicon glyphicon-sort" aria-hidden="true"></i></th>
+                            <th>Confirm?</th>
+                            <th>Cancel?</th>
+                            <th>Ship?</th>
+                        </tr>
+                        <tr>
+                            <td colspan="10">
+                                <input st-search="name" placeholder="Search for name" class="input-sm form-control" type="search"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="10">
+                                <input st-search="seller" placeholder="Search for seller" class="input-sm form-control" type="search"/>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody ng-if="!mc.isLoading" ng-repeat="(key, value) in displayedCollection | groupBy: groupProperty">
+                        <tr ng-if="key !== 'undefined'" class="text-center text-uppercase">
+                            <td colspan="7">
+                                {{key}}
+                            </td>
+                            <th>
+                                <button class="btn btn-primary btn-sm" ng-click="confirmAll(value)">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                </button>
+                            </th>
+                            <th></th>
+                            <th>
+                                <button class="btn btn-warning btn-sm" ng-click="shipAll(value)">
+                                    <i class="glyphicon glyphicon-envelope"></i>
+                                </button>
+                            </th>
+                        </tr>
+                        <tr ng-repeat="row in value | filterBy: ['state']: filterProperty" ng-click="show($index)">
+                            <td class="col-md-2"><img ng-src="{{row.image}}" class="img-responsive"></td>
+                            <td>{{row.customer}}</td>
+                            <td>{{row.name}}</td>
+                            <td>{{row.price}} €</td>
+                            <td>{{row.quantity}} / {{row.quantityMax}}</td>
+                            <td>{{row.state}}</td>
+                            <td>{{row.date}}</td>
+                            <td>
+                                <button ng-disabled="row.state != 'Pending'" type="button" ng-click="confirm(row)" class="btn btn-sm btn-success">
+                                    <i class="glyphicon glyphicon-ok">
+                                    </i>
+                                </button>
+                            </td>
+                            <td>
+                                <button ng-disabled="row.state != 'Pending'" type="button" ng-click="cancel(row)" class="btn btn-sm btn-danger">
+                                    <i class="glyphicon glyphicon-remove-circle">
+                                    </i>
+                                </button>
+                            </td>
+                            <td>
+                                <button ng-disabled="row.state != 'Paid'" type="button" ng-click="ship(row)" class="btn btn-sm btn-success">
+                                    <i class="glyphicon glyphicon-envelope">
+                                    </i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td class="text-center" st-pagination="" st-items-by-page="10" colspan="5">
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer"></div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"   integrity="sha256-DI6NdAhhFRnO2k51mumYeDShet3I8AKCQf/tf7ARNhI="   crossorigin="anonymous"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/lib/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+<script src="/lib/jquery.cookie.js"></script>
+<script src="/lib/angular-ui-notification.min.js"></script>
+<script src="/lib/spin.min.js"></script>
+<script src="/lib/smart-table.min.js"></script>
+<script src="/lib/angular-spinner.js"></script>
+<script src="/lib/angular-filter.min.js"></script>
+<script src="/js/facebookService.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/oauth.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/orderPending.js"></script>
+
+<script>
+        $( "#headtitle" ).load( "/assets/html/headtitle.html" );
+        $( "#footer" ).load( "/assets/html/footer.html" );
+    </script>
+</body>
+</html>

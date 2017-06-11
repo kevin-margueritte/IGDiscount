@@ -1,0 +1,91 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+# An example controller showing how to use dependency injection
+GET     /count                      controllers.CountController.count
+# An example controller showing how to write asynchronous code
+GET     /message                    controllers.AsyncController.message
+
+# API Registration
+POST    /simpleUser      controllers.RegistrationUserController.registrationSimpleUser
+POST    /simpleUser/facebook      controllers.RegistrationUserController.registrationSimpleUserFacebook
+POST    /sellerCompany   controllers.RegistrationUserController.registrationSellerCompany
+POST    /admin           controllers.RegistrationUserController.registrationAdmin
+
+#API Sign In
+POST    /signin     controllers.SignInController.signIn
+POST    /signinFacebook     controllers.SignInController.signInFacebook
+
+#API Manage User
+GET     /simpleUser/:id             controllers.ManageUserController.getSimpleUser(id : Long)
+GET     /sellerCompany/:id          controllers.ManageUserController.getSellerCompany(id : Long)
+GET     /admin/:id                  controllers.ManageUserController.getAdmin(id : Long)
+GET     /simpleUser                 controllers.ManageUserController.getAllSimpleUser
+GET     /sellerCompany              controllers.ManageUserController.getAllSellerCompany
+GET     /admin                      controllers.ManageUserController.getAllAdmin
+DELETE     /simpleUser/:id     controllers.ManageUserController.deleteSimpleUser(id: Long)
+DELETE     /sellerCompany/:id    controllers.ManageUserController.deleteSellerCompany(id: Long)
+DELETE     /admin/:id            controllers.ManageUserController.deleteAdmin(id: Long)
+PUT     /simpleUser/:id        controllers.ManageUserController.updateSimpleUserWithoutPassword(id : Long)
+PUT     /sellerCompany/:id     controllers.ManageUserController.updateSellerCompanyWithoutPassword(id : Long)
+PUT     /admin/:id             controllers.ManageUserController.updateAdminWithoutPassword(id : Long)
+PUT     /simpleUser/:id/password        controllers.ManageUserController.updateSimpleUserPassword(id : Long)
+PUT     /sellerCompany/:id/password     controllers.ManageUserController.updateSellerCompanyPassword(id : Long)
+PUT     /admin/:id/password             controllers.ManageUserController.updateAdminPassword(id : Long)
+
+#API Utils
+GET     /kindOfUser                 controllers.UtilsController.kindOfUser
+
+#API Basket
+POST /simpleUser/:id1/product/:id2                    controllers.ManageBasketRowController.createBasketRow(id1 : Long, id2 : Long)
+PUT /simpleUser/:id1/product/:id2/quantity            controllers.ManageBasketRowController.updateBasket(id1 : Long, id2 : Long)
+DELETE /simpleUser/:id1/product/:id2                  controllers.ManageBasketRowController.deleteBasket(id1 : Long, id2 : Long)
+GET /simpleUser/:id/product                           controllers.ManageBasketRowController.getBasket(id : Long)
+
+#API Order
+POST /simpleUser/:id/order                            controllers.ManageOrderController.createOrder(id : Long)
+GET  /simpleUser/:id/order                            controllers.ManageOrderController.getOrderSimpleUser(id : Long)
+GET  /sellerCompany/:id/order                         controllers.ManageOrderController.getOrderSellerCompany(id : Long)
+GET  /order/confirmed                                 controllers.ManageOrderController.getOrderConfirmed
+PUT  /order/:id/paid                                  controllers.ManageOrderController.updateOrderPaid(id : Long)
+GET  /sellerCompany/:id/order/cancelledOrPaid         controllers.ManageOrderController.getOrderSellerCompanyCancelledOrPaid(id : Long)
+GET  /sellerCompany/:id/order/pendingOrPaid           controllers.ManageOrderController.getOrderSellerCompanyPendingOrPaid(id : Long)
+PUT  /simpleUser/:id1/order/:id2/state/confirm        controllers.ManageOrderController.updateOrderConfirm(id1 : Long, id2 : Long)
+PUT  /simpleUser/:id1/order/:id2/state/cancel         controllers.ManageOrderController.updateOrderCancel(id1 : Long, id2 : Long)
+PUT  /simpleUser/:id1/order/:id2/state/ship           controllers.ManageOrderController.updateOrderShip(id1 : Long, id2 : Long)
+
+#API Product
+POST /product                      controllers.ManageProductController.createProduct
+GET  /product/available           controllers.ManageProductController.allProductsByAvailable
+PUT  /product/:id/image            controllers.ManageProductController.updateImage(id: Long)
+GET  /product                      controllers.ManageProductController.allProducts
+GET  /product/:id/image            controllers.ManageProductController.image(id : Long)
+GET  /product/:id                   controllers.ManageProductController.product(id : Long)
+PUT  /product/:id                   controllers.ManageProductController.updateProduct(id : Long)
+DELETE  /product/:id                controllers.ManageProductController.deleteProduct(id : Long)
+GET  /sellerCompany/:id/product     controllers.ManageProductController.allProductsBySeller(id : Long)
+GET  /sellerCompany/:id/product/available     controllers.ManageProductController.allProductsBySellerAndAvailable(id : Long)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET		/registration				controllers.Assets.at(path="/public/html", file="registration.html")
+GET     /                           controllers.Assets.at(path="/public/html", file="index.html")
+GET		/connection				    controllers.Assets.at(path="/public/html", file="connection.html")
+GET		/account				    controllers.Assets.at(path="/public/html", file="modifyAccount.html")
+GET		/account/manage				    controllers.Assets.at(path="/public/html", file="adminAccount.html")
+GET		/products				    controllers.Assets.at(path="/public/html", file="products.html")
+GET		/product/create/				controllers.Assets.at(path="/public/html", file="createProduct.html")
+GET		/product/update/				controllers.Assets.at(path="/public/html", file="createProduct.html")
+GET		/product/manage/admin	    controllers.Assets.at(path="/public/html", file="productAdmin.html")
+GET		/product/manage/sellercompany	    controllers.Assets.at(path="/public/html", file="productSeller.html")
+GET		/cart               	    controllers.Assets.at(path="/public/html", file="cart.html")
+GET		/myorder               	    controllers.Assets.at(path="/public/html", file="orderSU.html")
+GET		/manage/order/pending       controllers.Assets.at(path="/public/html", file="orderPending.html")
+GET		/manage/order/completed      controllers.Assets.at(path="/public/html", file="orderCompleted.html")
+GET		/manage/order/confirmed      controllers.Assets.at(path="/public/html", file="orderConfirmed.html")
+GET		/js/*file				    controllers.Assets.at(path="/public/javascripts", file)
+GET		/lib/*file				    controllers.Assets.at(path="/public/lib", file)
+GET		/fonts/*file				controllers.Assets.at(path="/public/fonts", file)
+GET		/images/*file				controllers.Assets.at(path="/public/images", file)

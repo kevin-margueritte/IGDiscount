@@ -1,0 +1,11 @@
+package filters
+import javax.inject.Inject
+
+import play.api.http.DefaultHttpFilters
+import play.filters.cors.CORSFilter
+/**
+  * Created by kevin on 21/11/16.
+  */
+
+class Filters @Inject() (corsFilter: CORSFilter)
+  extends DefaultHttpFilters(corsFilter)

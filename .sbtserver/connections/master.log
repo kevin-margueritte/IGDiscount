@@ -1,0 +1,10 @@
+New log file opened at Fri Oct 28 21:35:41 CEST 2016 by 4947@debian
+Taking next connection to: 59279
+New client attempting to connect on port: 59606-59279
+  Address = /127.0.1.1:59279
+This client on port 59606 has uuid 9310909e-a05a-4c18-8c2b-6abcc5072612 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-9310909e-a05a-4c18-8c2b-6abcc5072612
+Taking next connection to: 59279
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 59279
